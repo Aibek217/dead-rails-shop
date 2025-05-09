@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dead Rails Магазин</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Минимальная ширина для контента */
+    @media (max-width: 320px) {
+      #login, #shop {
+        min-width: 280px;
+      }
+    }
+    /* Адаптивные размеры медиа в отзывах */
+    @media (max-width: 640px) {
+      img, video {
+        max-height: 150px !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-black min-h-screen flex items-center justify-center p-4 font-sans">
+  <div class="w-full max-w-md bg-gray-900 rounded-lg p-6 sm:p-8" id="login">
+    <h1 class="text-2xl font-medium text-white text-center mb-4 sm:mb-6">Dead Rails</h1>
+    <p class="text-red-400 text-center mb-3 sm:mb-4">Посмотрите, правильно ли вы написали свой никнейм, мы не несем за это ответственность</p>
+    <input type="text" id="robloxName" placeholder="Roblox ник" class="w-full p-3 border border-gray-700 rounded-md mb-3 sm:mb-4 bg-gray-800 text-white focus:outline-none focus:border-gray-500">
+    <div class="flex items-center mb-3 sm:mb-4">
+      <input type="checkbox" id="agreement" class="mr-2">
+      <label for="agreement" class="text-gray-300 text-sm">Я согласен с условием</label>
+    </div>
+    <button id="enterButton" onclick="enterStore()" class="w-full bg-white text-black p-3 rounded-md hover:bg-gray-200 transition-colors disabled:opacity-50" disabled>Войти</button>
+  </div>
+
+  <div class="w-full max-w-2xl bg-gray-900 rounded-lg p-6 sm:p-8 hidden" id="shop">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6">
+      <button onclick="returnToLogin()" class="w-full sm:w-auto bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors mb-2 sm:mb-0">Вернуться</button>
+      <div class="flex w-full sm:w-auto">
+        <button onclick="showTab('items')" class="flex-1 sm:flex-none px-4 py-2 text-white bg-gray-800 rounded-l-md hover:bg-gray-700 transition-colors" id="itemsTab">Товары</button>
+        <button onclick="showTab('reviews')" class="flex-1 sm:flex-none px-4 py-2 text-white bg-gray-700 rounded-r-md hover:bg-gray-600 transition-colors" id="reviewsTab">Отзывы</button>
+      </div>
+    </div>
+
+    <div id="items" class="tab-content">
+      <h2 class="text-xl font-medium text-white text-center mb-4 sm:mb-6">Классы</h2>
+      <div class="space-y-2 sm:space-y-3">
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Доктор — 25 тг</span>
+          <button onclick="addToCart('Доктор', 25)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Майнер — 25 тг</span>
+          <button onclick="addToCart('Майнер', 25)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Музыкант — 25 тг</span>
+          <button onclick="addToCart('Музыкант', 25)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Арсонист — 30 тг</span>
+          <button onclick="addToCart('Арсонист', 30)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Мастер упаковки — 50 тг</span>
+          <button onclick="addToCart('Мастер упаковки', 50)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Некромант — 50 тг</span>
+          <button onclick="addToCart('Некромант', 50)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Аламо — 75 тг</span>
+          <button onclick="addToCart('Аламо', 75)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Ковбой — 75 тг</span>
+          <button onclick="addToCart('Ковбой', 75)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Кондуктор — 75 тг</span>
+          <button onclick="addToCart('Кондуктор', 75)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Высокий ролик — 75 тг</span>
+          <button onclick="addToCart('Высокий ролик', 75)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Вереволк — 75 тг</span>
+          <button onclick="addToCart('Вереволк', 75)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Выживший — 100 тг</span>
+          <button onclick="addToCart('Выживший', 100)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Священник — 100 тг</span>
+          <button onclick="addToCart('Священник', 100)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Вампир — 100 тг</span>
+          <button onclick="addToCart('Вампир', 100)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Зомби — 100 тг</span>
+          <button onclick="addToCart('Зомби', 100)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Железный человек — 150 тг</span>
+          <button onclick="addToCart('Железный человек', 150)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-medium text-white text-center mt-6 sm:mt-8 mb-4 sm:mb-6">Поезда</h2>
+      <div class="space-y-2 sm:space-y-3">
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Крупный рогатый скот — 225 тг</span>
+          <button onclick="addToCart('Крупный рогатый скот', 225)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Золотая лихорадка — 250 тг</span>
+          <button onclick="addToCart('Золотая лихорадка', 250)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+        <div class="flex justify-between items-center p-2">
+          <span class="text-gray-300">Бронированный — 275 тг</span>
+          <button onclick="addToCart('Бронированный', 275)" class="bg-white text-black px-3 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors">В корзину</button>
+        </div>
+      </div>
+
+      <div class="mt-6 sm:mt-8">
+        <h2 class="text-xl font-medium text-white text-center mb-4">Корзина</h2>
+        <div id="cart" class="space-y-2"></div>
+        <div class="flex flex-col sm:flex-row justify-between items-center mt-4">
+          <span class="text-gray-300 mb-2 sm:mb-0">Итого: <span id="total">0 тг</span></span>
+          <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+            <button onclick="clearCart()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors disabled:opacity-50" id="clearCartButton" disabled>Удалить всё</button>
+            <button onclick="buyAll()" class="bg-white text-black px-4 py-2 rounded-md border border-black hover:bg-gray-200 transition-colors disabled:opacity-50" disabled id="buyAllButton">Купить всё</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="reviews" class="tab-content hidden">
+      <h2 class="text-xl font-medium text-white text-center mb-4 sm:mb-6">Отзывы</h2>
+      <div class="mb-4 sm:mb-6">
+        <p class="text-gray-300 text-center mb-2">Статистика отзывов</p>
+        <p class="text-gray-400 text-center">Средний рейтинг: <span id="averageRating">0</span> / 5 (Всего отзывов: <span id="totalReviews">0</span>)</p>
+      </div>
+      <div class="mb-4 sm:mb-6 p-4 bg-gray-800 rounded-md" id="reviewForm">
+        <p class="text-gray-300 mb-2">Оставить отзыв</p>
+        <div class="flex mb-2 justify-center">
+          <div id="starRating" class="flex">
+            <span onclick="setRating(1)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+            <span onclick="setRating(2)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+            <span onclick="setRating(3)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+            <span onclick="setRating(4)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+            <span onclick="setRating(5)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+          </div>
+        </div>
+        <input type="text" id="reviewText" placeholder="Ваш отзыв" class="w-full p-3 border border-gray-700 rounded-md mb-3 sm:mb-4 bg-gray-800 text-white focus:outline-none focus:border-gray-500">
+        <div class="relative">
+          <input type="file" id="reviewMedia" accept="image/jpeg,image/png,video/mp4,video/webm" class="hidden">
+          <label for="reviewMedia" class="w-full p-3 border border-gray-700 rounded-md bg-gray-800 text-gray-400 cursor-pointer hover:bg-gray-700 transition-colors flex items-center justify-between">
+            <span id="fileLabel">Выберите Фото-Видео</span>
+            <span class="text-gray-500">jpg, png, mp4, webm</span>
+          </label>
+          <p id="selectedFile" class="text-gray-400 text-sm mt-2 hidden"></p>
+        </div>
+        <button onclick="submitReview()" class="w-full bg-white text-black p-3 rounded-md border border-black hover:bg-gray-200 transition-colors mt-3 sm:mt-4">Отправить отзыв</button>
+      </div>
+      <div id="reviewsList" class="space-y-3 sm:space-y-4"></div>
+    </div>
+
+    <div class="mt-6 sm:mt-8 text-center text-gray-400 text-sm">
+      <p>Наши соцсети: <a href="https://www.tiktok.com/@dead_rails_sale" target="_blank" class="underline hover:text-gray-300">@dead_rails_sale (TikTok)</a> | <a href="https://t.me/Aibekxcdm815" target="_blank" class="underline hover:text-gray-300">@Aibekxcdm815 (Telegram)</a></p>
+      <div class="mt-4 text-gray-500 text-sm sm:text-base">
+        <p class="mb-2 sm:mb-3"><strong>Уведомление об авторских правах</strong>: Этот сайт является фанатским проектом и не связан с Dead Rails или Roblox. Все права на Dead Rails принадлежат их создателям, а права на Roblox — компании Roblox Corporation. Мы не претендуем на их интеллектуальную собственность и используем названия исключительно в информационных целях.</p>
+        <p class="mb-2 sm:mb-3"><strong>Авторское право на сайт</strong>: Концепция, дизайн и реализация этого сайта принадлежат Aibek. Копирование, воспроизведение или использование элементов сайта без письменного разрешения запрещено.</p>
+        <p class="mb-2 sm:mb-3">© 2025 Aibek. Все права защищены.</p>
+        <p class="mb-2 sm:mb-3"><strong>Правила магазина</strong>: Все продаваемые товары — это предметы из игры, созданной независимыми разработчиками, а не Roblox. Покупая, вы соглашаетесь, что мы не несем ответственности за выдачу предметов — это зависит от сторонних разработчиков. Для получения товаров свяжитесь через указанный Telegram-чат.</p>
+        <p class="mb-2 sm:mb-3"><strong>Обращение к разработчикам</strong>: Уважаемые разработчики Roblox и Dead Rails, если вы считаете, что мой сайт нарушает ваши права и собираетесь подать жалобу, забанить мой аккаунт, подать в суд или предпринять другие действия, пожалуйста, дайте мне предупреждение, чтобы я мог исправить ситуацию. Свяжитесь со мной через Telegram-чат, указанный выше. Спасибо за понимание!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="purchaseNotification" class="fixed bottom-4 right-4 bg-gray-800 text-white p-3 sm:p-4 rounded-md shadow-lg hidden max-w-xs sm:max-w-sm">
+    <p>Спасибо за покупку! Перейдите в <a href="https://t.me/Aibekxcdm815" target="_blank" class="underline text-blue-400 hover:text-blue-300">@Aibekxcdm815</a>, чтобы мы смогли выдать вам купленное.</p>
+    <button onclick="closeNotification()" class="mt-2 text-gray-400 hover:text-gray-300 text-sm sm:text-base">Закрыть</button>
+  </div>
+
+  <script>
+    let username = "";
+    let cart = [];
+    let currentRating = 0;
+
+    // Обработчик для чекбокса согласия
+    document.getElementById("agreement").addEventListener("change", function() {
+      document.getElementById("enterButton").disabled = !this.checked;
+    });
+
+    // Функция для привязки обработчика события для reviewMedia
+    function bindMediaInputListener() {
+      const reviewMediaInput = document.getElementById("reviewMedia");
+      if (reviewMediaInput) {
+        reviewMediaInput.addEventListener("change", function() {
+          const file = this.files[0];
+          const selectedFile = document.getElementById("selectedFile");
+          const fileLabel = document.getElementById("fileLabel");
+          if (file) {
+            selectedFile.textContent = `Выбран: ${file.name}`;
+            selectedFile.classList.remove("hidden");
+            fileLabel.textContent = file.name;
+          } else {
+            selectedFile.classList.add("hidden");
+            fileLabel.textContent = "Выберите Фото-Видео";
+          }
+        });
+      }
+    }
+
+    // Изначально привязываем обработчик
+    bindMediaInputListener();
+
+    function enterStore() {
+      const input = document.getElementById("robloxName").value.trim();
+      if (input === "") {
+        alert("Пожалуйста, введите ник.");
+        return;
+      }
+      username = input;
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("shop").classList.remove("hidden");
+      loadReviews();
+    }
+
+    function returnToLogin() {
+      document.getElementById("shop").classList.add("hidden");
+      document.getElementById("login").classList.remove("hidden");
+      document.getElementById("robloxName").value = "";
+      document.getElementById("agreement").checked = false;
+      document.getElementById("enterButton").disabled = true;
+      username = "";
+    }
+
+    function showTab(tab) {
+      document.querySelectorAll(".tab-content").forEach(content => content.classList.add("hidden"));
+      document.getElementById(tab).classList.remove("hidden");
+      document.getElementById("itemsTab").classList.toggle("bg-gray-800", tab === "items");
+      document.getElementById("itemsTab").classList.toggle("bg-gray-700", tab !== "items");
+      document.getElementById("reviewsTab").classList.toggle("bg-gray-800", tab === "reviews");
+      document.getElementById("reviewsTab").classList.toggle("bg-gray-700", tab !== "reviews");
+    }
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartDiv = document.getElementById("cart");
+      const totalSpan = document.getElementById("total");
+      const buyAllButton = document.getElementById("buyAllButton");
+      const clearCartButton = document.getElementById("clearCartButton");
+      cartDiv.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((cartItem, index) => {
+        total += cartItem.price;
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "flex justify-between items-center text-gray-300 p-2";
+        itemDiv.innerHTML = `
+          <span>${cartItem.item} — ${cartItem.price} тг</span>
+          <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-300">Удалить</button>
+        `;
+        cartDiv.appendChild(itemDiv);
+      });
+
+      totalSpan.textContent = `${total} тг`;
+      buyAllButton.disabled = cart.length === 0;
+      clearCartButton.disabled = cart.length === 0;
+    }
+
+    function showNotification() {
+      const notification = document.getElementById("purchaseNotification");
+      notification.classList.remove("hidden");
+      setTimeout(() => {
+        notification.classList.add("hidden");
+      }, 5000);
+    }
+
+    function closeNotification() {
+      document.getElementById("purchaseNotification").classList.add("hidden");
+    }
+
+    function buyAll() {
+      if (!username || cart.length === 0) return;
+      const purchaseDetails = cart.map(cartItem => `Товар: ${cartItem.item}, Цена: ${cartItem.price} тг`).join("\n");
+      fetch("https://discord.com/api/webhooks/1370484054008266863/C3LVADVDozvUsnHF39Id3b6vsyTuZIzE9Cn0Up86f20V5vwsxr6RLvN4wVXQ-0Tuc7U2", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `**Покупка в магазине Dead Rails**\nПользователь: ${username}\n${purchaseDetails}\nИтого: ${cart.reduce((sum, item) => sum + item.price, 0)} тг`
+        })
+      });
+      showNotification();
+      cart = [];
+      updateCart();
+    }
+
+    function setRating(rating) {
+      currentRating = rating;
+      const stars = document.getElementById("starRating").children;
+      for (let i = 0; i < stars.length; i++) {
+        stars[i].classList.toggle("text-yellow-400", i < rating);
+        stars[i].classList.toggle("text-gray-400", i >= rating);
+      }
+    }
+
+    function submitReview() {
+      const reviewText = document.getElementById("reviewText").value.trim();
+      const reviewMedia = document.getElementById("reviewMedia").files[0];
+      if (currentRating === 0) {
+        alert("Пожалуйста, выберите рейтинг.");
+        return;
+      }
+      if (reviewText === "") {
+        alert("Пожалуйста, напишите отзыв.");
+        return;
+      }
+      let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+      if (reviews.some(review => review.username === username)) {
+        alert("Вы уже оставили отзыв. Вы можете удалить его и оставить новый.");
+        return;
+      }
+
+      const review = {
+        username,
+        rating: currentRating,
+        text: reviewText,
+        timestamp: new Date().toISOString(),
+        media: null,
+        mediaType: null
+      };
+
+      if (reviewMedia) {
+        const validImageTypes = ["image/jpeg", "image/png"];
+        const validVideoTypes = ["video/mp4", "video/webm"];
+        if (!validImageTypes.includes(reviewMedia.type) && !validVideoTypes.includes(reviewMedia.type)) {
+          alert("Пожалуйста, выберите изображение (jpg, png) или видео (mp4, webm).");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          review.media = e.target.result;
+          review.mediaType = reviewMedia.type;
+          reviews.push(review);
+          localStorage.setItem("reviews", JSON.stringify(reviews));
+          document.getElementById("reviewText").value = "";
+          document.getElementById("reviewMedia").value = "";
+          document.getElementById("selectedFile").classList.add("hidden");
+          document.getElementById("fileLabel").textContent = "Выберите Фото-Видео";
+          setRating(0);
+          loadReviews();
+        };
+        reader.readAsDataURL(reviewMedia);
+      } else {
+        reviews.push(review);
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+        document.getElementById("reviewText").value = "";
+        document.getElementById("reviewMedia").value = "";
+        document.getElementById("selectedFile").classList.add("hidden");
+        document.getElementById("fileLabel").textContent = "Выберите Фото-Видео";
+        setRating(0);
+        loadReviews();
+      }
+    }
+
+    function deleteReview(usernameToDelete) {
+      let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+      reviews = reviews.filter(review => review.username !== usernameToDelete);
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      loadReviews();
+    }
+
+    function loadReviews() {
+      const reviewsList = document.getElementById("reviewsList");
+      const averageRatingSpan = document.getElementById("averageRating");
+      const totalReviewsSpan = document.getElementById("totalReviews");
+      const reviewForm = document.getElementById("reviewForm");
+      reviewsList.innerHTML = "";
+      const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+      let totalRating = 0;
+      const hasUserReviewed = reviews.some(review => review.username === username);
+
+      if (hasUserReviewed) {
+        reviewForm.innerHTML = `<p class="text-gray-300 text-center">Вы уже оставили отзыв. Вы можете удалить его и оставить новый.</p>`;
+      } else {
+        reviewForm.innerHTML = `
+          <p class="text-gray-300 mb-2">Оставить отзыв</p>
+          <div class="flex mb-2 justify-center">
+            <div id="starRating" class="flex">
+              <span onclick="setRating(1)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+              <span onclick="setRating(2)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+              <span onclick="setRating(3)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+              <span onclick="setRating(4)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+              <span onclick="setRating(5)" class="cursor-pointer text-gray-400 hover:text-yellow-400 text-2xl">★</span>
+            </div>
+          </div>
+          <input type="text" id="reviewText" placeholder="Ваш отзыв" class="w-full p-3 border border-gray-700 rounded-md mb-3 sm:mb-4 bg-gray-800 text-white focus:outline-none focus:border-gray-500">
+          <div class="relative">
+            <input type="file" id="reviewMedia" accept="image/jpeg,image/png,video/mp4,video/webm" class="hidden">
+            <label for="reviewMedia" class="w-full p-3 border border-gray-700 rounded-md bg-gray-800 text-gray-400 cursor-pointer hover:bg-gray-700 transition-colors flex items-center justify-between">
+              <span id="fileLabel">Выберите Фото-Видео</span>
+              <span class="text-gray-500">jpg, png, mp4, webm</span>
+            </label>
+            <p id="selectedFile" class="text-gray-400 text-sm mt-2 hidden"></p>
+          </div>
+          <button onclick="submitReview()" class="w-full bg-white text-black p-3 rounded-md border border-black hover:bg-gray-200 transition-colors mt-3 sm:mt-4">Отправить отзыв</button>
+        `;
+        bindMediaInputListener(); // Повторно привязываем обработчик после рендеринга формы
+      }
+
+      reviews.forEach(review => {
+        totalRating += review.rating;
+        const reviewDiv = document.createElement("div");
+        reviewDiv.className = "p-3 sm:p-4 bg-gray-800 rounded-md";
+        let mediaHTML = "";
+        if (review.media) {
+          if (review.mediaType.startsWith("image")) {
+            mediaHTML = `<img src="${review.media}" class="mt-2 max-w-full h-auto rounded-md" style="max-height: 200px;">`;
+          } else if (review.mediaType.startsWith("video")) {
+            mediaHTML = `<video src="${review.media}" controls class="mt-2 max-w-full h-auto rounded-md" style="max-height: 200px;"></video>`;
+          }
+        }
+        reviewDiv.innerHTML = `
+          <div class="flex items-center mb-2">
+            <span class="text-yellow-400">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</span>
+            <span class="text-gray-500 text-sm ml-2">${new Date(review.timestamp).toLocaleDateString()}</span>
+          </div>
+          <p class="text-gray-300">${review.text}</p>
+          ${mediaHTML}
+          <p class="text-gray-500 text-sm mt-2">— ${review.username}</p>
+          ${review.username === username ? `<button onclick="deleteReview('${review.username}')" class="text-red-400 hover:text-red-300 mt-2">Удалить</button>` : ""}
+        `;
+        reviewsList.appendChild(reviewDiv);
+      });
+
+      const averageRating = reviews.length ? (totalRating / reviews.length).toFixed(1) : 0;
+      averageRatingSpan.textContent = averageRating;
+      totalReviewsSpan.textContent = reviews.length;
+    }
+  </script>
+</body>
+</html>
